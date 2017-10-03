@@ -9,6 +9,8 @@ int main() {
         {R, R, R, R, R, R, R, R, R},
         {B, B, B, B, B, B, B, B, B},
         {D, D, D, D, D, D, D, D, D}
+
+        printf("Hello World!");
     };
     Face color = getColor();
     return 0;
