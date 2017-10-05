@@ -1,5 +1,8 @@
+/// @file main.c
+
 #include "cube.h"
 #include "solve.h"
+#include <stdio.h>
 
 int main() {
     Cube cube = {
@@ -9,9 +12,9 @@ int main() {
         {R, R, R, R, R, R, R, R, R},
         {B, B, B, B, B, B, B, B, B},
         {D, D, D, D, D, D, D, D, D}
-
-        printf("Hello World!");
     };
-    Face color = getColor();
+    Movement solution[1000];
+    Nbpas = solveCube(&cube, solution);
+
     return 0;
 };

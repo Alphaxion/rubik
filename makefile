@@ -1,4 +1,4 @@
-files = -o rubik main.c cube.c
+files = -o rubik main.c cube.c solve.c
 links =
 flags = -Wall -Werror
 relflags = -O2
