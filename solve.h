@@ -1,4 +1,5 @@
 /// @file solve.h
+/// Fonctions pour trouver comment résoudre le cube.
 
 #ifndef SOLVE_H
 #define SOLVE_H

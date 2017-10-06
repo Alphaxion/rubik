@@ -1,4 +1,5 @@
 /// @file cube.h
+/// Représentation en mémoire du cube et fonctions pour le manipuler.
 
 #ifndef CUBE_H
 #define CUBE_H
@@ -38,9 +39,9 @@ typedef struct Corner {
 typedef struct Edge {
     Facelet f1;
     Facelet f2;
-};
+} Edge;
 /// Un cube.
-typedef Facelet Cube[6][9];
+typedef Color Cube[6][9];
 /// Orientation du cube.
 typedef struct Orientation {
     FaceName upFace;
@@ -59,7 +60,7 @@ void moveCube(Cube *cube, Movement movement, Orientation orientation);
 /// Cherche un coin possédant les couleurs demandées.
 Corner findCorner(Cube *cube, Color c1, Color c2, Color c3);
 /// Cherche une arête possédant les couleurs demandées.
-Edge findEdge(Cube *cube, Color c1, color c2);
+Edge findEdge(Cube *cube, Color c1, Color c2);
 /// Renvoie le mouvement à faire si le cube était vu de face.
 Movement movementIfFaced(Movement movement, Orientation orientation);
 /// Vérifie que toutes les pièces sont présentes.
