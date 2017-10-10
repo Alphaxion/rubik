@@ -1,12 +1,11 @@
-/// @file test_solve.c
-/// A utiliser pour tester les fonctionnalités de solve.c.
+/// @file test.c
+/// A utiliser pour tester les fonctionnalités.
 
 #include "cube.h"
 #include "solve.h"
 #include <stdio.h>
 
 int main() {
-    printf("Test de cube.c et solve.c");
     Cube cube = {
         { BACK,  BACK,  DOWN,  FRONT, UP,    FRONT, FRONT, FRONT, UP    },
         { RIGHT, LEFT,  RIGHT, DOWN,  LEFT,  RIGHT, DOWN,  DOWN,  FRONT },

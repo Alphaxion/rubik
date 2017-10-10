@@ -3,10 +3,10 @@ flags = -Wall -Werror -g
 all: rubik
 
 rubik:
-	gcc -o rubik main.c cube.c solve.c camera.c stepper.c $(flags)
+	gcc -o bin/rubik main.c camera.c stepper.c $(flags)
 
-solve:
-	gcc -o solve test_solve.c cube.c solve.c $(flags)
+test:
+	gcc -o bin/test test.c $(flags)
 
 clean:
-	rm -f rubik solve
+	rm -f bin
