@@ -1,1 +1,10 @@
-bin
+/*
+!/*.vhd
+!/makefile
+!/software
+/software/*
+!/software/rubik
+/software/rubik/*
+!/software/rubik/*.c
+!/software/rubik/*.h
+!/software/rubik/ckociemba
