@@ -1,3 +1,5 @@
+//rubik : check_cached_table et dump_to_file modifiées.
+
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -59,23 +61,24 @@ char * join_path(const char *dir, const char *filename)
 
 int check_cached_table(const char* name, void* ptr, int len, const char *cache_dir)
 {
-    char *fname = join_path(cache_dir, name);
-    if (fname == NULL) {
-        fprintf(stderr, "Path to cache tables is too long\n");
-        return -1;
-    }
-    int res = 0;
-    if (access(fname, F_OK | R_OK) != -1) {
-        // fprintf(stderr, "Found cache for %s. Loading...", name);
-        read_from_file(ptr, len, fname);
-        // fprintf(stderr, "done.\n");
-        res = 0;
-    } else {
-        fprintf(stderr, "Cache table %s was not found. Recalculating.\n", fname);
-        res = 1;
-    }
-    free(fname);
-    return res;
+    return 1;
+    // char *fname = join_path(cache_dir, name);
+    // if (fname == NULL) {
+        // fprintf(stderr, "Path to cache tables is too long\n");
+        // return -1;
+    // }
+    // int res = 0;
+    // if (access(fname, F_OK | R_OK) != -1) {
+        fprintf(stderr, "Found cache for %s. Loading...", name);
+        // read_from_file(ptr, len, fname);
+        fprintf(stderr, "done.\n");
+        // res = 0;
+    // } else {
+        // fprintf(stderr, "Cache table %s was not found. Recalculating.\n", fname);
+        // res = 1;
+    // }
+    // free(fname);
+    // return res;
 }
 
 void read_from_file(void* ptr, int len, const char* name)
@@ -88,21 +91,21 @@ void read_from_file(void* ptr, int len, const char* name)
 
 void dump_to_file(void* ptr, int len, const char* name, const char *cache_dir)
 {
-    int status;
-    status = mkdir(cache_dir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-    if (status == 0 || errno == EEXIST) {
-        char *fname = join_path(cache_dir, name);
-        if (fname == NULL) {
-            fprintf(stderr, "Path to cache tables is too long\n");
-        } else {
-            FILE* f = fopen(fname, "w");
-            fwrite(ptr, len, 1, f);
-            free(fname);
-            fclose(f);
-        }
-    } else {
-        fprintf(stderr, "cannot create cache tables directory\n");
-    }
+    // int status;
+    // status = mkdir(cache_dir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    // if (status == 0 || errno == EEXIST) {
+        // char *fname = join_path(cache_dir, name);
+        // if (fname == NULL) {
+            // fprintf(stderr, "Path to cache tables is too long\n");
+        // } else {
+            // FILE* f = fopen(fname, "w");
+            // fwrite(ptr, len, 1, f);
+            // free(fname);
+            // fclose(f);
+        // }
+    // } else {
+        // fprintf(stderr, "cannot create cache tables directory\n");
+    // }
 }
 
 coordcube_t* get_coordcube(cubiecube_t* cubiecube)
@@ -340,7 +343,7 @@ void initPruning(const char *cache_dir)
         }
         dump_to_file((void*) Slice_URtoDF_Parity_Prun, sizeof(Slice_URtoDF_Parity_Prun), "Slice_URtoDF_Parity_Prun", cache_dir);
     }
-    
+
     if(check_cached_table("Slice_Twist_Prun", (void*) Slice_Twist_Prun, sizeof(Slice_Twist_Prun), cache_dir) != 0) {
         for (int i = 0; i < N_SLICE1 * N_TWIST / 2 + 1; i++)
             Slice_Twist_Prun[i] = -1;
@@ -412,4 +415,3 @@ signed char getPruning(signed char *table, int index) {
 
     return res;
 }
-

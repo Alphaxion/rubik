@@ -1,10 +1,8 @@
 /*
-!/*.vhd
-!/makefile
-!/software
-/software/*
-!/software/rubik
-/software/rubik/*
-!/software/rubik/*.c
-!/software/rubik/*.h
-!/software/rubik/ckociemba
+!/hw
+/hw/*
+!/hw/*.vhd
+!/sw
+/sw/*
+!/sw/*.c
+!/sw/*.h
