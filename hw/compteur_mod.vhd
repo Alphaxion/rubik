@@ -1,7 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
---use ieee.std_logic_unsigned.all;
 
 entity compteur_mod is
 	generic(
@@ -10,24 +9,26 @@ entity compteur_mod is
 	);
 	port(
 		clk:  in  std_logic;
-		tick: out std_logic
+		tick: out std_logic;
+		q:    out unsigned(size-1 downto 0)
 	);
 end compteur_mod;
 
 architecture behavioral of compteur_mod is
-	signal q: unsigned(size-1 downto 0) := (others => '0');
+	signal cnt: unsigned(size-1 downto 0) := (others => '0');
 begin
 	process(clk)
 	begin
 		if rising_edge(clk)
 		then
-			if(q=n-1)
+			if(cnt=n-1)
 			then
-				q <= (others=>'0');
+				cnt <= (others=>'0');
 			else
-				q <= q+1;
+				cnt <= cnt+1;
 			end if;
 		end if;
 	end process;
-	tick <= '1' when q=n-1 else '0';
+	q <= cnt;
+	tick <= '1' when cnt=n-1 else '0';
 end behavioral;

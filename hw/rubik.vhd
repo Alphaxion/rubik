@@ -90,7 +90,7 @@ begin
             clk_50   => FPGA_CLK1_50,
             stp_step => GPIO_0(2 downto 0),
             stp_dir  => GPIO_0(5 downto 3),
-				srv_cmd  => GPIO_0(8 downto 6),
+				srv_pwm  => GPIO_0(8 downto 6),
             enable   => motors_enable,
             done     => motors_done,
             cmd      => motors_cmd
