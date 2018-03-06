@@ -6,3 +6,6 @@
 /sw/*
 !/sw/*.c
 !/sw/*.h
+!/ihm
+/ihm/*
+!/ihm/*.py

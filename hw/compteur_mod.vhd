@@ -5,11 +5,11 @@ use ieee.numeric_std.all;
 
 entity compteur_mod is
 	generic(
-		n: integer := 10;--10000000;
+		n:    integer := 10;--10000000;
 		size: integer := 24
 	);
 	port(
-		clk: in std_logic;
+		clk:  in  std_logic;
 		tick: out std_logic
 	);
 end compteur_mod;

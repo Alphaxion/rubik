@@ -57,9 +57,9 @@ architecture rtl of rubik is
             pio_out_export     : out   std_logic_vector(4 downto 0)
         );
     end component hps_system;
-    signal steppers_cmd: signed(3 downto 0) := (others=>'0');
-    signal steppers_reset: std_logic := '0';
-    signal steppers_done: std_logic := '1';
+    signal motors_cmd:    signed(3 downto 0);
+    signal motors_enable: std_logic;
+    signal motors_done:   std_logic;
 begin 
     u_hps : component hps_system
         port map (
@@ -81,17 +81,18 @@ begin
             memory_mem_dm      => HPS_DDR3_DM,
             memory_oct_rzqin   => HPS_DDR3_RZQ,
             reset_reset_n      => KEY(1),
-            pio_in_export      => steppers_done,
-            pio_out_export(4)  => steppers_reset,
-            signed(pio_out_export(3 downto 0)) => steppers_cmd
+            pio_in_export      => motors_done,
+            pio_out_export(4)  => motors_enable,
+            signed(pio_out_export(3 downto 0)) => motors_cmd
         );
-    u_steppers: entity work.steppers
+    u_motors: entity work.motors
         port map(
-            clk   => FPGA_CLK1_50,
-            step  => GPIO_0(5 downto 0),
-            dir   => GPIO_0(11 downto 6),
-            reset => steppers_reset,
-            done  => steppers_done,
-            cmd   => steppers_cmd
+            clk_50   => FPGA_CLK1_50,
+            stp_step => GPIO_0(2 downto 0),
+            stp_dir  => GPIO_0(5 downto 3),
+				srv_cmd  => GPIO_0(8 downto 6),
+            enable   => motors_enable,
+            done     => motors_done,
+            cmd      => motors_cmd
         );
 end rtl; 

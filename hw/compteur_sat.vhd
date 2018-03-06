@@ -7,11 +7,12 @@ entity compteur_sat is
 		size: integer := 8
 	);
 	port(
-		en: in std_logic;
-		reset: in std_logic;
-		clk: in std_logic;
-		n: in unsigned(size-1 downto 0);
-		q: out unsigned(size-1 downto 0)
+		en:    in  std_logic;
+		reset: in  std_logic;
+		clk:   in  std_logic;
+		n:     in  unsigned(size-1 downto 0);
+		q:     out unsigned(size-1 downto 0);
+		done:  out std_logic
 	);
 end compteur_sat;
 
@@ -32,4 +33,5 @@ begin
 		end if;
 	end process;
 	q <= cnt;
+	done <= '1' when cnt=n else '0';
 end behavioral;
