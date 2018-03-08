@@ -2,10 +2,13 @@
 !/hw
 /hw/*
 !/hw/*.vhd
+!/hw/makefile
 !/sw
 /sw/*
 !/sw/*.c
 !/sw/*.h
+!/sw/makefile
 !/ihm
 /ihm/*
 !/ihm/*.py
+
