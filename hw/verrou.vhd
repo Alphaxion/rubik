@@ -4,31 +4,49 @@ use ieee.numeric_std.all;
 
 entity verrou is
 	port(
-		clk:           in std_logic;
-		input:         in std_logic;
-		input_update:  in std_logic;
-		output:        out std_logic;
-		output_update: in std_logic
+		clk:      in std_logic;
+		cmd:      in signed(3 downto 0);
+		enable:   in std_logic;
+		position: out std_logic_vector(2 downto 0);
+		q:        in unsigned(23 downto 0)
 	);
 end verrou;
 
 architecture behavioral of verrou is
-	signal mem:    std_logic := '0';
-	signal sortie: std_logic := '0';
+	signal memin:  std_logic_vector(2 downto 0) := (others => '0');
+	signal memout: std_logic_vector(2 downto 0) := (others => '0');
 begin
 	process(clk)
 	begin
 		if rising_edge(clk)
 		then
-			if input_update='1'
+			if enable='1'
 			then
-				mem <= input;
+				if cmd=2
+				then
+					memin(2) <= '1';
+				elsif cmd=-2
+				then
+					memin(2) <= '0';
+				elsif cmd=4
+				then
+					memin(1) <= '1';
+				elsif cmd=-4
+				then
+					memin(1) <= '0';
+				elsif cmd=6
+				then
+					memin(0) <= '1';
+				elsif cmd=-6
+				then
+					memin(0) <= '0';
+				end if;
 			end if;
-			if output_update='1'
+			if q=0
 			then
-				sortie <= mem;
+				memout <= memin;
 			end if;
 		end if;
 	end process;
-	output <= sortie;
+	position <= memout;
 end behavioral;

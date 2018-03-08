@@ -12,7 +12,7 @@ architecture behavioral of motors_test is
 	signal done:     std_logic;
 	signal stp_step: std_logic_vector(2 downto 0);
 	signal stp_dir:  std_logic_vector(2 downto 0);
-	signal srv_cmd:  std_logic_vector(2 downto 0);
+	signal srv_pwm:  std_logic_vector(2 downto 0);
 begin
 	u_motors: entity work.motors
 		port map(
@@ -22,7 +22,7 @@ begin
 			done     => done,
 			stp_step => stp_step,
 			stp_dir  => stp_dir,
-			srv_cmd  => srv_cmd
+			srv_pwm  => srv_pwm
 		);
 	process
 	begin
