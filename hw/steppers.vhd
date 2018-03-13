@@ -18,7 +18,7 @@ architecture behavioral of steppers is
 	signal q:     unsigned(7 downto 0);
 begin
 	u_tick: entity work.compteur_mod
-		generic map( n => 50 )--50000
+		generic map( n => 50000 )--50000
 		port map(
 			clk  => clk_50,
 			tick => tick--1000us

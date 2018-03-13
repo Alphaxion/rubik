@@ -29,6 +29,8 @@ class Window(Tk):
     def on_send_click(self):
         port = "COM3"
         s = self.cube_state_to_string()
+        self.clipboard_clear()
+        self.clipboard_append(s)
         try:
             with serial.Serial(port, timeout=1) as ser:
                 Window.serial_write(ser, s)

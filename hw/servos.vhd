@@ -18,7 +18,7 @@ architecture behavioral of servos is
 	signal position: std_logic_vector(2 downto 0);
 begin
 	u_tick: entity work.compteur_mod
-		generic map( n => 5 )--5000
+		generic map( n => 5000 )--5000
 		port map(
 			clk  => clk_50,
 			tick => tick--100us

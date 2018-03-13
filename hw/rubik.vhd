@@ -33,30 +33,31 @@ entity rubik is
 end entity rubik;
 
 architecture rtl of rubik is
-    component hps_system is
-        port (
-            clk_clk            : in    std_logic                       := 'X';
-            memory_mem_a       : out   std_logic_vector(14 downto 0);
-            memory_mem_ba      : out   std_logic_vector(2 downto 0);
-            memory_mem_ck      : out   std_logic;
-            memory_mem_ck_n    : out   std_logic;
-            memory_mem_cke     : out   std_logic;
-            memory_mem_cs_n    : out   std_logic;
-            memory_mem_ras_n   : out   std_logic;
-            memory_mem_cas_n   : out   std_logic;
-            memory_mem_we_n    : out   std_logic;
-            memory_mem_reset_n : out   std_logic;
-            memory_mem_dq      : inout std_logic_vector(31 downto 0)   := (others => 'X');
-            memory_mem_dqs     : inout std_logic_vector(3 downto 0)    := (others => 'X');
-            memory_mem_dqs_n   : inout std_logic_vector(3 downto 0)    := (others => 'X');
-            memory_mem_odt     : out   std_logic;
-            memory_mem_dm      : out   std_logic_vector(3 downto 0);
-            memory_oct_rzqin   : in    std_logic                       := 'X';
-            reset_reset_n      : in    std_logic                       := 'X';
-            pio_in_export      : in    std_logic                       := 'X';
-            pio_out_export     : out   std_logic_vector(4 downto 0)
-        );
-    end component hps_system;
+	component hps_system is
+		port (
+			clk_clk            : in    std_logic                     := 'X';             -- clk
+			memory_mem_a       : out   std_logic_vector(14 downto 0);                    -- mem_a
+			memory_mem_ba      : out   std_logic_vector(2 downto 0);                     -- mem_ba
+			memory_mem_ck      : out   std_logic;                                        -- mem_ck
+			memory_mem_ck_n    : out   std_logic;                                        -- mem_ck_n
+			memory_mem_cke     : out   std_logic;                                        -- mem_cke
+			memory_mem_cs_n    : out   std_logic;                                        -- mem_cs_n
+			memory_mem_ras_n   : out   std_logic;                                        -- mem_ras_n
+			memory_mem_cas_n   : out   std_logic;                                        -- mem_cas_n
+			memory_mem_we_n    : out   std_logic;                                        -- mem_we_n
+			memory_mem_reset_n : out   std_logic;                                        -- mem_reset_n
+			memory_mem_dq      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
+			memory_mem_dqs     : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs
+			memory_mem_dqs_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
+			memory_mem_odt     : out   std_logic;                                        -- mem_odt
+			memory_mem_dm      : out   std_logic_vector(3 downto 0);                     -- mem_dm
+			memory_oct_rzqin   : in    std_logic                     := 'X';             -- oct_rzqin
+			pio_done_export    : in    std_logic                     := 'X';             -- export
+			pio_cmd_export     : out   std_logic_vector(3 downto 0);                     -- export
+			reset_reset_n      : in    std_logic                     := 'X';             -- reset_n
+			pio_enable_export  : out   std_logic                                         -- export
+		);
+	end component hps_system;
     signal motors_cmd:    signed(3 downto 0);
     signal motors_enable: std_logic;
     signal motors_done:   std_logic;
@@ -81,16 +82,16 @@ begin
             memory_mem_dm      => HPS_DDR3_DM,
             memory_oct_rzqin   => HPS_DDR3_RZQ,
             reset_reset_n      => KEY(1),
-            pio_in_export      => motors_done,
-            pio_out_export(4)  => motors_enable,
-            signed(pio_out_export(3 downto 0)) => motors_cmd
+            pio_done_export    => motors_done,
+            pio_enable_export  => motors_enable,
+            signed(pio_cmd_export) => motors_cmd
         );
     u_motors: entity work.motors
         port map(
             clk_50   => FPGA_CLK1_50,
             stp_step => GPIO_0(2 downto 0),
             stp_dir  => GPIO_0(5 downto 3),
-				srv_pwm  => GPIO_0(8 downto 6),
+            srv_pwm  => GPIO_0(8 downto 6),
             enable   => motors_enable,
             done     => motors_done,
             cmd      => motors_cmd

@@ -5,14 +5,40 @@
 
 #include "solve.h"
 #include "conversion.h"
-#include "stepper.h"
+#include "motors.h"
+//pour initpruning au démarrage
+#include "coordcube.h"
+
+void commande_solve(char* s);
 
 int main() {
 	printf("start\n");
-	char fac[1024];
-	fgets(fac, sizeof(fac), stdin);
-	fac[strlen(fac)-1] = '\0';
-	char* sol = solve(fac);
+	//initPruning("cache");
+	while(1) {
+		printf("ready\n");
+		char fac[1024];
+		fgets(fac, sizeof(fac), stdin);
+		fac[strlen(fac)-1] = '\0';
+		char command[256];
+		char option[256];
+		sscanf(fac, "%s %s", command, option);
+		switch() {
+			case "solve":
+				command_solve(option);
+				break;
+			case "move":
+				break;
+			default:
+				printf("unknown command\n");
+				break;
+		}
+	}
+	printf("end\n");
+	return 0;
+}
+
+void commande_solve(char* s) {
+	char* sol = solve(s);
 	if(!sol) {
 		printf("cube insoluble\n");
 		return -1;
@@ -23,10 +49,8 @@ int main() {
 		if(moves[i]==0) {
 			break;
 		}
-		moveStepper(moves[i]);
+		move_motor(moves[i]);
 	}
 	free(sol);
 	free(moves);
-	printf("end\n");
-	return 0;
 }

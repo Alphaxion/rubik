@@ -1,5 +1,5 @@
 all:
-	gcc main.c conversion.c stepper.c solve.c search.c facecube.c cubiecube.c coordcube.c -o rubik -Wall -Werror -g
+	gcc main.c conversion.c motors.c solve.c search.c facecube.c cubiecube.c coordcube.c -o rubik -Wall -Werror -g
 
 run:
 	echo "UUUUUUUUUBBBRRRRRRRRRFFFFFFDDDDDDDDDFFFLLLLLLLLLBBBBBB" | ./rubik
