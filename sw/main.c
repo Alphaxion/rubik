@@ -9,39 +9,52 @@
 //pour initpruning au démarrage
 #include "coordcube.h"
 
-void commande_solve(char* s);
+void input(char* s);
+void command_solve();
+void command_move();
 
 int main() {
 	printf("start\n");
-	//initPruning("cache");
 	while(1) {
-		printf("ready\n");
-		char fac[1024];
-		fgets(fac, sizeof(fac), stdin);
-		fac[strlen(fac)-1] = '\0';
+		printf("commande ?\n");
 		char command[256];
-		char option[256];
-		sscanf(fac, "%s %s", command, option);
-		switch() {
-			case "solve":
-				command_solve(option);
-				break;
-			case "move":
-				break;
-			default:
-				printf("unknown command\n");
-				break;
+		input(command);
+		if(strcmp(command, "solve")==0) {
+			command_solve();
+		}
+		else if(strcmp(command, "move")==0) {
+			command_move();
+		}
+		else if(strcmp(command, "init")==0) {
+			initPruning("cache");
+		}
+		else if(strcmp(command, "test")==0) {
+			printf("test\n")
+		}
+		else if(strcmp(command, "quit")==0) {
+			break;
+		}
+		else {
+			printf("unknown command\n");
 		}
 	}
 	printf("end\n");
 	return 0;
 }
 
-void commande_solve(char* s) {
-	char* sol = solve(s);
+void input(char* s) {
+	fgets(s, sizeof(s), stdin);
+	s[strlen(s)-1] = '\0';
+}
+
+void command_solve() {
+	char cube_state[256];
+	printf("état du cube ?\n");
+	input(cube_state);
+	char* sol = solve(cube_state);
 	if(!sol) {
 		printf("cube insoluble\n");
-		return -1;
+		return;
 	}
 	printf("%s\n", sol);
 	int* moves = conversion(sol, strlen(sol));
@@ -53,4 +66,13 @@ void commande_solve(char* s) {
 	}
 	free(sol);
 	free(moves);
+}
+
+void command_move() {
+	char cmd_str[256];
+	printf("mouvement ?\n");
+	input(cmd_str);
+	int cmd;
+	sscanf(cmd_str, "%d", &cmd);
+	move_motor(cmd);
 }
