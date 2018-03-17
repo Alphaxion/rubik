@@ -4,6 +4,14 @@
 
 #include "motors.h"
 
+#ifdef SIMULATION
+
+void move_motor(int cmd) {
+  printf("motor %d\n", cmd);
+}
+
+#else
+
 void move_motor(int cmd) {
   printf("motor %d\n", cmd);
   set_cmd(cmd);
@@ -11,6 +19,8 @@ void move_motor(int cmd) {
   while(get_done()==0);
   set_enable(0);
 }
+
+#endif
 
 void set_enable(int enable) {
   volatile int* v_enable = (int*)PIO_ENABLE_BASE;

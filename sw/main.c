@@ -6,21 +6,26 @@
 #include "solve.h"
 #include "conversion.h"
 #include "motors.h"
-//pour initpruning au d�marrage
+//pour initpruning au démarrage
 #include "coordcube.h"
 
+#define BUFSIZE 256
+
 void input(char* s);
-void command_solve();
+void command_solve(int debug);
 void command_move();
 
 int main() {
 	printf("start\n");
 	while(1) {
 		printf("commande ?\n");
-		char command[256];
+		char command[BUFSIZE];
 		input(command);
-		if(strcmp(command, "solve")==0) {
-			command_solve();
+		if     (strcmp(command, "solve")==0) {
+			command_solve(0);
+		}
+		else if(strcmp(command, "debug")==0) {
+			command_solve(1);
 		}
 		else if(strcmp(command, "move")==0) {
 			command_move();
@@ -29,7 +34,7 @@ int main() {
 			initPruning("cache");
 		}
 		else if(strcmp(command, "test")==0) {
-			printf("test\n")
+			printf("test\n");
 		}
 		else if(strcmp(command, "quit")==0) {
 			break;
@@ -47,10 +52,13 @@ void input(char* s) {
 	s[strlen(s)-1] = '\0';
 }
 
-void command_solve() {
-	char cube_state[256];
-	printf("�tat du cube ?\n");
+void command_solve(int debug) {
+	char cube_state[BUFSIZE];
+	printf("état du cube ?\n");
 	input(cube_state);
+	if(strcmp(cube_state, "auto")==0) {
+		//détection par caméra
+	}
 	char* sol = solve(cube_state);
 	if(!sol) {
 		printf("cube insoluble\n");
@@ -62,6 +70,9 @@ void command_solve() {
 		if(moves[i]==0) {
 			break;
 		}
+		if(debug) {
+			//faire pas-à-pas
+		}
 		move_motor(moves[i]);
 	}
 	free(sol);
@@ -69,7 +80,7 @@ void command_solve() {
 }
 
 void command_move() {
-	char cmd_str[256];
+	char cmd_str[BUFSIZE];
 	printf("mouvement ?\n");
 	input(cmd_str);
 	int cmd;
