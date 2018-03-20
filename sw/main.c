@@ -11,7 +11,7 @@
 
 #define BUFSIZE 256
 
-void input(char* s);
+void input(char* s, int lenght);
 void command_solve(int debug);
 void command_move();
 
@@ -20,7 +20,7 @@ int main() {
 	while(1) {
 		printf("commande ?\n");
 		char command[BUFSIZE];
-		input(command);
+		input(command, BUFSIZE);
 		if     (strcmp(command, "solve")==0) {
 			command_solve(0);
 		}
@@ -47,15 +47,17 @@ int main() {
 	return 0;
 }
 
-void input(char* s) {
-	fgets(s, sizeof(s), stdin);
+void input(char* s, int lenght) {
+	fgets(s, lenght, stdin);
 	s[strlen(s)-1] = '\0';
+	int c;
+	while((c = getchar()) != '\n' && c != EOF);
 }
 
 void command_solve(int debug) {
 	char cube_state[BUFSIZE];
 	printf("état du cube ?\n");
-	input(cube_state);
+	input(cube_state, BUFSIZE);
 	if(strcmp(cube_state, "auto")==0) {
 		//détection par caméra
 	}
@@ -82,7 +84,7 @@ void command_solve(int debug) {
 void command_move() {
 	char cmd_str[BUFSIZE];
 	printf("mouvement ?\n");
-	input(cmd_str);
+	input(cmd_str, BUFSIZE);
 	int cmd;
 	sscanf(cmd_str, "%d", &cmd);
 	move_motor(cmd);
