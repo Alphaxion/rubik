@@ -61,7 +61,7 @@ architecture rtl of rubik is
     signal motors_cmd:    signed(3 downto 0);
     signal motors_enable: std_logic;
     signal motors_done:   std_logic;
-begin 
+begin
     u_hps : component hps_system
         port map (
             clk_clk            => FPGA_CLK1_50,
@@ -96,4 +96,4 @@ begin
             done     => motors_done,
             cmd      => motors_cmd
         );
-end rtl; 
+end rtl;
