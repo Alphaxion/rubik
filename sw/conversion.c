@@ -2,20 +2,20 @@
 
 /*The robot has 3 arms: L, R and F (for Left, Right and Front).
 *   moves:
-*   1 = left arm turns 90� clockwise.
-*   -1 = left arm turns 90� counter-clockwise.
+*   1 = left arm turns 90° clockwise.
+*   -1 = left arm turns 90° counter-clockwise.
 *   2 = left arm opens
 *   -2 = left arm closes
-*   3 = right arm turns 90� clockwise.
-*   -3 = right arm turns 90� counter-clockwise.
+*   3 = right arm turns 90° clockwise.
+*   -3 = right arm turns 90° counter-clockwise.
 *   4 = right arm opens
 *   -4 = right arm closes
-*   5 = front arm turns 90� clockwise.
-*   -5 = front arm turns 90� counter-clockwise.
+*   5 = front arm turns 90° clockwise.
+*   -5 = front arm turns 90° counter-clockwise.
 *   6 = front arm opens
 *   -6 = front arm closes
-*   7 = left arm turns 90� clockwise and right arm turns 90� counter-clockwise at the same time.
-*   -7 = left arm turns 90� counter-clockwise and right arm turns 90� clockwise at the same time.
+*   7 = left arm turns 90° clockwise and right arm turns 90° counter-clockwise at the same time.
+*   -7 = left arm turns 90° counter-clockwise and right arm turns 90° clockwise at the same time.
 */
 
 #include <stdlib.h>
