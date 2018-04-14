@@ -6,23 +6,25 @@ entity motors_test is
 end motors_test;
 
 architecture behavioral of motors_test is
-	signal clk_50:   std_logic          := '0';
-	signal enable:   std_logic          := '0';
-	signal cmd:      signed(3 downto 0) := (others => '0');
-	signal done:     std_logic;
-	signal stp_step: std_logic_vector(2 downto 0);
-	signal stp_dir:  std_logic_vector(2 downto 0);
-	signal srv_pwm:  std_logic_vector(2 downto 0);
+	signal clk_50:      std_logic          := '0';
+	signal enable:      std_logic          := '0';
+	signal cmd:         signed(3 downto 0) := (others => '0');
+	signal done:        std_logic;
+	signal stp_step:    std_logic_vector(2 downto 0);
+	signal stp_dir:     std_logic_vector(2 downto 0);
+	signal stp_notenbl: std_logic_vector(2 downto 0);
+	signal srv_pwm:     std_logic_vector(2 downto 0);
 begin
 	u_motors: entity work.motors
 		port map(
-			clk_50   => clk_50,
-			enable   => enable,
-			cmd      => cmd,
-			done     => done,
-			stp_step => stp_step,
-			stp_dir  => stp_dir,
-			srv_pwm  => srv_pwm
+			clk_50      => clk_50,
+			enable      => enable,
+			cmd         => cmd,
+			done        => done,
+			stp_step    => stp_step,
+			stp_dir     => stp_dir,
+			stp_notenbl => stp_notenbl,
+			srv_pwm     => srv_pwm
 		);
 	process
 	begin

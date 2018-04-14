@@ -9,7 +9,8 @@ entity steppers is
 		cmd:      in  signed(3 downto 0);
 		done:     out std_logic;
 		step:     out std_logic_vector(2 downto 0);
-		dir:      out std_logic_vector(2 downto 0)
+		dir:      out std_logic_vector(2 downto 0);
+		notenbl:  out std_logic_vector(2 downto 0)
 	);
 end steppers;
 
@@ -39,4 +40,7 @@ begin
 	step(2) <= q(0) when cmd=1 or cmd=-1 or cmd=7 or cmd=-7 else '0';
 	step(1) <= q(0) when cmd=3 or cmd=-3 or cmd=7 or cmd=-7 else '0';
 	step(0) <= q(0) when cmd=5 or cmd=-5 else '0';
+	notenbl(2) <= '0' when cmd=1 or cmd=-1 or cmd=7 or cmd=-7 else '1';
+	notenbl(1) <= '0' when cmd=3 or cmd=-3 or cmd=7 or cmd=-7 else '1';
+	notenbl(0) <= '0' when cmd=5 or cmd=-5 else '1';
 end behavioral;
